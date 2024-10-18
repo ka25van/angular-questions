@@ -1,0 +1,15 @@
+Setup angular-  
+        npm i -g @angular/cli to install angular
+        ng new projectname to setup angular 
+        Node is required
+        typescript is required
+        setup components if required
+
+How to communicate b/n components?
+    @Input decorator from parent to child; 
+    @Output decorator from child to parent. Use EventEmitter here
+    @viewChild/@viewChildren to read or set properties of child within parent
+
+What is NgRx? 
+    NgRx means angular-redux library used for app's state management. Uses concepts such as actions, reducers, effects, and selectors.
+    State Management is a term that defines a way we can store data, modify it, and react to its changes. In our case, the libraries NGRX 

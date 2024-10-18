@@ -1,0 +1,7 @@
+In Parent;
+    export class ParentComponent {
+    @ViewChild('child') child: ChildComponent;
+    // ...
+    }
+
+    <app-child #child></app-child>
