@@ -1,0 +1,53 @@
+// message.service.ts
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',  // This means the service is provided at the root level and is a singleton.
+})
+export class MessageService {
+  constructor() {}
+
+  getMessage(): string {
+    return "Hello from MessageService!";
+  }
+}
+
+
+// app.component.ts
+import { Component } from '@angular/core';
+import { MessageService } from './message.service';  // Import the service
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div>
+      <h1>Dependency Injection Example</h1>
+      <p>{{ message }}</p>
+    </div>
+  `,
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  message: string;
+
+  // Inject the service via the constructor
+  constructor(private messageService: MessageService) {
+    this.message = this.messageService.getMessage();  // Use the service to get a message
+  }
+}
+
+
+// app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppComponent } from './app.component';
+import { MessageService } from './message.service';  // Import the service
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule],
+  providers: [MessageService],  // Register the service here (optional, if not providedIn root)
+  bootstrap: [AppComponent],
+})
+export class AppModule {}

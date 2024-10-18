@@ -5,6 +5,9 @@ Setup angular-
         typescript is required
         setup components if required
 
+How Angular works?
+    Main.ts->Here bootstrap to ->App.module-> then it goen into App.component
+
 How to communicate b/n components?
     @Input decorator from parent to child; 
     @Output decorator from child to parent. Use EventEmitter here
@@ -13,3 +16,27 @@ How to communicate b/n components?
 What is NgRx? 
     NgRx means angular-redux library used for app's state management. Uses concepts such as actions, reducers, effects, and selectors.
     State Management is a term that defines a way we can store data, modify it, and react to its changes. In our case, the libraries NGRX 
+
+What is dependency injection?
+    In Angular, Dependency Injection (DI) is a core design pattern that provides a way to supply components and services with their dependencies rather than creating them directly
+
+    Key Concepts:
+            Provider: A provider tells the injector how to create an instance of the dependency.
+            Injector: The injector is responsible for resolving the dependencies and providing instances where required.
+            Service: A service is a class with some logic that can be injected into components or other services.
+            DI Token: A unique key that the injector uses to map to a dependency (usually the class name of the service).
+            How Dependency Injection Works:
+            Register the service in an Angular module.
+            Inject the service into a component using the component's constructor.
+            The injector provides an instance of the service to the component.
+
+What is RxJs?
+
+    RxJS is a key part of Angular and is used for handling asynchronous operations like HTTP requests, user input events, etc.
+
+    Key Concepts in RxJS:
+        Observable: Represents a stream of data or events over time. Observables can emit multiple values.
+        Observer: An object with callbacks that handle data from an observable (e.g., next(), error(), complete()).
+        Subscription: Represents the execution of an observable, allowing us to listen to data streams.
+        Operators: Functions that enable the transformation or filtering of data streams, e.g., map(), filter(), switchMap().
+        Subjects: Special observables that act as both an observable and an observer (useful for multicasting).

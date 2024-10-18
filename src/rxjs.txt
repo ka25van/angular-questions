@@ -1,0 +1,101 @@
+// message.service.ts
+import { Injectable } from '@angular/core';
+import { Observable, interval } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MessageService {
+  constructor() { }
+
+  // Returns an Observable that emits messages every 1 second
+  getMessageStream(): Observable<string> {
+    return interval(1000).pipe(  // Emits values at intervals (every 1 second)
+      map(value => `Message ${value + 1}`)  // Transform the emitted values into a string message
+    );
+  }
+}
+Here:
+
+interval(1000) is an RxJS function that emits a number every second.
+We use the map() operator to transform each number into a message like Message 1, Message 2, etc.
+The getMessageStream() function returns an Observable that emits these messages.
+
+
+
+// app.component.ts
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MessageService } from './message.service';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div>
+      <h2>RxJS Observable Example</h2>
+      <p>{{ message }}</p>
+      <button (click)="stopMessages()">Stop Messages</button>
+    </div>
+  `,
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit, OnDestroy {
+  message: string = '';
+  private messageSubscription: Subscription | undefined;
+
+  constructor(private messageService: MessageService) {}
+
+  ngOnInit(): void {
+    // Subscribe to the message stream when the component is initialized
+    this.messageSubscription = this.messageService.getMessageStream().subscribe(
+      (msg: string) => {
+        this.message = msg;  // Update the message with the emitted value
+      }
+    );
+  }
+
+  // Unsubscribe to prevent memory leaks when the component is destroyed
+  ngOnDestroy(): void {
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
+    }
+  }
+
+  // Stop the message stream manually when the button is clicked
+  stopMessages() {
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
+    }
+  }
+}
+What’s Happening Here:
+Subscription: We subscribe to the observable from MessageService inside ngOnInit() so that when the component initializes, it starts listening to the message stream.
+Displaying Data: The message variable is updated every time the observable emits a new message.
+Unsubscribe: We unsubscribe in the ngOnDestroy() lifecycle method to prevent memory leaks. Also, we provide a stopMessages() method to stop the observable manually when a button is clicked.
+
+
+
+// app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { MessageService } from './message.service';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule],
+  providers: [MessageService],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+
+
+
+
+
+Summary:
+RxJS is a powerful library for handling asynchronous data in Angular.
+Observables allow us to subscribe to a data stream and react to changes over time.
+Operators like map(), filter(), and many others help to manipulate streams of data.
+Subscriptions need to be managed properly to avoid memory leaks, so always unsubscribe when an observable is no longer needed.
