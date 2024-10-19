@@ -1,0 +1,50 @@
+Using Built-in Pipes in a Template:-
+            <!-- app.component.html -->
+        <div>
+        <h2>Angular Pipes Example</h2>
+
+        <!-- Date pipe -->
+        <p>Today is: {{ today | date: 'fullDate' }}</p>(takes today's date and the format is Wednesday 18 October 2024)
+
+        <!-- Uppercase and Lowercase pipes -->
+        <p>Uppercase: {{ message | uppercase }}</p>
+        <p>Lowercase: {{ message | lowercase }}</p>
+
+        <!-- Currency pipe -->
+        <p>Price: {{ price | currency: 'USD':'symbol':'1.2-2' }}</p>
+
+        <!-- Decimal pipe -->
+        <p>Decimal Format: {{ 3.14159 | number: '1.2-2' }}</p>
+        </div>
+
+
+
+Creating a Custom Pipe:-
+        ng generate pipe myCustom
+
+        // my-custom.pipe.ts
+        import { Pipe, PipeTransform } from '@angular/core';
+
+        @Pipe({
+        name: 'titlecase'
+        })
+        export class MyCustomPipe implements PipeTransform {
+        transform(value: string): string {
+            if (!value) return '';
+            return value
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+        }
+        }
+
+        Make sure to add the custom pipe to your declarations array in app.module.ts:
+
+                <!-- app.component.html -->
+        <div>
+        <h2>Custom Pipe Example</h2>
+        <p>Title Case: {{ message | titlecase }}</p>
+        </div>
+
+
+

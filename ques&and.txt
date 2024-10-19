@@ -16,6 +16,19 @@ How to communicate b/n components?
 What is NgRx? 
     NgRx means angular-redux library used for app's state management. Uses concepts such as actions, reducers, effects, and selectors.
     State Management is a term that defines a way we can store data, modify it, and react to its changes. In our case, the libraries NGRX 
+    
+    For this you need to download ng add @ngrx/store
+    The app.modules will be updated
+    Create a folder named as store->
+       create a file named as file.actions.ts(This represents user actions, to trigger state changes)
+       create a file named as file.reducer.ts(The state changes with respect to dispatch actions)->
+          Declare the initialState=0;
+          use 'on' function to handle the different actions and update it.
+          (This is suitable in increasing/decreasing the cart value)
+          Now call this file in the necessary functions of the project
+
+
+
 
 What is dependency injection?
     In Angular, Dependency Injection (DI) is a core design pattern that provides a way to supply components and services with their dependencies rather than creating them directly
@@ -40,3 +53,35 @@ What is RxJs?
         Subscription: Represents the execution of an observable, allowing us to listen to data streams.
         Operators: Functions that enable the transformation or filtering of data streams, e.g., map(), filter(), switchMap().
         Subjects: Special observables that act as both an observable and an observer (useful for multicasting).
+
+
+What is pipe?
+    In Angular, a pipe is a mechanism used to transform data in the HTML, helping to format, filter, or manipulate data before displaying it to the user. Pipes are similar to filters in other frameworks and can be easily applied to expressions within an Angular template using a pipe (|) symbol.
+
+        Common Use Cases for Pipes:
+            Formatting dates, numbers, or currencies.
+            Uppercasing or lowercasing text.
+            Transforming complex objects to more readable forms.
+            Custom transformations with custom pipes.
+
+        Types of Pipes in Angular:
+            Built-in Pipes: Angular provides many built-in pipes like:
+            date: Formats date values.
+            uppercase / lowercase: Converts text to upper or lower case.
+            currency: Formats numbers as currencies.
+            json: Formats data as a JSON string.
+            async: Automatically subscribes to observables and displays the latest values.
+
+        Custom Pipes: You can create your own pipes to perform specific transformations.        
+
+
+Angular LifeCycle Hooks?
+    Execution Order of Hooks:
+            ngOnChanges (only when input properties change)
+            ngOnInit
+            ngDoCheck
+            ngAfterContentInit
+            ngAfterContentChecked
+            ngAfterViewInit
+            ngAfterViewChecked
+            ngOnDestroy

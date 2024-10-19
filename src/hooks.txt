@@ -1,0 +1,87 @@
+// app.component.ts
+import { Component, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div>
+      <h2>Angular Lifecycle Hooks Example</h2>
+      <p>Input: {{ inputData }}</p>
+      <button (click)="changeInput()">Change Input</button>
+    </div>
+  `,
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit, OnChanges, OnDestroy {
+  inputData: string = "Initial Data";
+
+  constructor() {
+    console.log('Constructor called');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('ngOnChanges called:', changes);
+  }
+
+  ngOnInit() {
+    console.log('ngOnInit called');
+  }
+
+  ngDoCheck() {
+    console.log('ngDoCheck called');
+  }
+
+  ngAfterContentInit() {
+    console.log('ngAfterContentInit called');
+  }
+
+  ngAfterContentChecked() {
+    console.log('ngAfterContentChecked called');
+  }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit called');
+    Useful for initializing DOM-related logic like working with view elements (e.g., using @ViewChild).
+  }
+
+  ngAfterViewChecked() {
+    console.log('ngAfterViewChecked called');
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy called');
+  }
+
+  changeInput() {
+    this.inputData = 'Updated Data';
+  }
+}
+
+Output:
+    Constructor called
+    ngOnInit called
+    ngAfterContentInit called
+    ngAfterViewInit called
+    ngDoCheck called
+    ngAfterContentChecked called
+    ngAfterViewChecked called
+
+
+What’s Happening:
+        ngOnInit: Called after the component is initialized.
+        ngOnChanges: Called whenever the inputData is changed (this is only applicable when the component has input-bound properties).
+        ngDoCheck: Called during every change detection cycle.
+        ngAfterContentInit: Called once after the content has been projected.
+        ngAfterContentChecked: Called after each change detection cycle to check content changes.
+        ngAfterViewInit: Called once after the view is fully initialized.
+        ngAfterViewChecked: Called after every view change detection cycle.
+        ngOnDestroy: Called just before the component is destroyed.
+
+Summary:
+        ngOnChanges: Handles changes to input-bound properties.
+        ngOnInit: Used for initialization tasks.
+        ngDoCheck: Custom change detection logic.
+        ngAfterContentInit and ngAfterContentChecked: Handle initialization and checking of projected content.
+        ngAfterViewInit and ngAfterViewChecked: Handle initialization and checking of the component’s view and child views.
+        ngOnDestroy: Handles cleanup before the component is destroyed.
+
